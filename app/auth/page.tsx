@@ -1,8 +1,9 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { getSupabaseBrowserClient } from '@/lib/supabase/client'
+import { getVerdentAuth } from '@/lib/verdent-auth'
 
 function AuthPanel() {
   const router = useRouter()
@@ -15,6 +16,19 @@ function AuthPanel() {
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [unconfigured, setUnconfigured] = useState(false)
+
+  // Redirect when a session appears (email sign-in or the Verdent modal).
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient()
+    if (!supabase) return
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_IN') {
+        router.push(next)
+        router.refresh()
+      }
+    })
+    return () => data.subscription.unsubscribe()
+  }, [router, next])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -44,15 +58,21 @@ function AuthPanel() {
     }
   }
 
-  async function handleGoogle() {
-    const supabase = getSupabaseBrowserClient()
-    if (!supabase) {
+  function handleVerdent() {
+    const verdentAuth = getVerdentAuth()
+    if (!verdentAuth) {
       setUnconfigured(true)
       return
     }
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
+    setError(null)
+    verdentAuth.openSignInModal({
+      appName: 'Sri Lankan Guru',
+      theme: 'light',
+      primaryColor: '#A75D3F',
+      onSuccess: () => {
+        router.push(next)
+        router.refresh()
+      },
     })
   }
 
@@ -105,10 +125,11 @@ function AuthPanel() {
         </button>
         <button
           type="button"
-          onClick={handleGoogle}
+          onClick={handleVerdent}
           className="w-full rounded-full border border-sand-dark/40 py-3 text-sm font-semibold text-ink transition-colors hover:bg-cloud"
         >
-          Continue with Google
+          Continue with Verdent
+          <span className="mt-0.5 block text-xs font-normal text-muted">Google or email — managed sign-in</span>
         </button>
         <p className="text-center text-sm text-muted">
           {mode === 'signin' ? (

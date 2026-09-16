@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.verdent
+legacy
+dist
+logs
+*.log
+.env*
+!.env.example
+.gitignore
+README.md
+Dockerfile
+.dockerignore

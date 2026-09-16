@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/destinations/colombo":{},"/destinations/negombo":{},"/destinations/sigiriya":{},"/destinations/kandy":{},"/destinations/nuwara-eliya":{},"/destinations/ella":{},"/destinations/yala":{},"/destinations/udawalawe":{},"/destinations/galle":{},"/destinations/mirissa":{},"/destinations/trincomalee":{},"/destinations/arugam-bay":{},"/destinations/jaffna":{},"/destinations/anuradhapura":{},"/destinations/polonnaruwa":{}},"dynamicRoutes":{"/destinations/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/destinations/[slug]","routeRegex":"^\\/destinations\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"d09d39af30aee1977cad50dfb65c9348","previewModeSigningKey":"ebe5836c15d0b0991382aa91aa34b823349364f8d7c9f2bf0bdc4fa926dcde91","previewModeEncryptionKey":"5e7d125b1b455ac4404ee16e1d49eff9ec919ed47fc5ac7a4e54ffee557cea92"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "5931c10a13769b8b3aedb32d2d93cae8",
+    "previewModeSigningKey": "d45a8aebf98de44d8af8c0ff59fce5b9795562a554c911c1ca670e60608737d0",
+    "previewModeEncryptionKey": "75a78b5e0b18752ec28ed1e5767621e6d4a4ca715694847e8a5c58bac61fc945"
+  }
+}

@@ -5,13 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "node .next/standalone/server.js",
+    "start:full": "mkdir -p .next/standalone/public .next/standalone/.next && cp -R public/. .next/standalone/public/ && cp -R .next/static .next/standalone/.next/static && node .next/standalone/server.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "@react-three/fiber": "~9.1.2",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
+    "@verdent/auth-js": "0.1.9",
     "leaflet": "^1.9.4",
     "next": "^15.3.2",
     "pdfkit": "^0.16.0",
