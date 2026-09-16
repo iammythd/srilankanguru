@@ -1,11 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion, useIsCompact } from '@/hooks/useMedia'
-
-const IslandScene3D = dynamic(() => import('@/components/home/IslandScene3D'), { ssr: false })
 
 const SCENE_COUNT = 6
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v))
@@ -27,16 +24,7 @@ export default function CinematicHome() {
   const stageRef = useRef<HTMLDivElement>(null)
   const sceneRefs = useRef<(HTMLDivElement | null)[]>([])
   const [heroGone, setHeroGone] = useState(false)
-  const [enable3D, setEnable3D] = useState(false)
   const heroGoneRef = useRef(false)
-
-  useEffect(() => {
-    if (!reduced && !compact) {
-      const raf = requestAnimationFrame(() => setEnable3D(true))
-      return () => cancelAnimationFrame(raf)
-    }
-    setEnable3D(false)
-  }, [reduced, compact])
 
   useEffect(() => {
     if (reduced) return
@@ -186,7 +174,7 @@ export default function CinematicHome() {
   function renderScene(i: number, mode: 'dynamic' | 'static') {
     switch (i) {
       case 0:
-        return <IslandScene mode={mode} compact={compact} enable3D={enable3D} />
+        return <IslandScene mode={mode} compact={compact} />
       case 1:
         return <CultureScene mode={mode} />
       case 2:
@@ -204,7 +192,7 @@ export default function CinematicHome() {
 }
 
 type SceneProps = { mode: 'dynamic' | 'static' }
-type IslandProps = SceneProps & { compact: boolean; enable3D: boolean }
+type IslandProps = SceneProps & { compact: boolean }
 
 function Layer({ depth, className, children, style }: { depth: number; className?: string; children?: React.ReactNode; style?: React.CSSProperties }) {
   return (
@@ -214,72 +202,94 @@ function Layer({ depth, className, children, style }: { depth: number; className
   )
 }
 
-/* ---------------- Scene 1 — Island ---------------- */
-function IslandScene({ mode, compact, enable3D }: IslandProps) {
+/* ---------------- Scene 1 — Island (editorial hero) ---------------- */
+function IslandScene({ mode, compact }: IslandProps) {
   return (
-    <div className="relative h-full w-full overflow-hidden bg-gradient-to-b from-[#0c4a5a] via-[#4b7a6e] to-[#c9b088]">
-      <Layer depth={0.15} className="absolute -top-[12%] left-[62%] h-[46vh] w-[46vh] rounded-full bg-[#f2e3c2] opacity-80 blur-[2px]" style={{ mixBlendMode: 'soft-light' }} />
-      {/* distant mountains */}
-      <Layer depth={0.35} className="absolute bottom-[22%] inset-x-0">
-        <svg viewBox="0 0 1440 220" className="w-full text-[#3d5c50]" preserveAspectRatio="none" aria-hidden>
-          <path fill="currentColor" d="M0 220 L0 150 120 90 240 140 360 60 480 130 600 80 720 150 840 100 960 150 1080 70 1200 130 1320 95 1440 145 1440 220 Z" />
-        </svg>
+    <div className="relative h-full w-full overflow-hidden bg-jungle">
+      {/* photographic base — Sigiriya above the royal gardens */}
+      <Layer depth={0.1} className="absolute inset-0">
+        <img
+          src={img('Sigiriya.jpg', 1600)}
+          alt=""
+          className="h-full w-full scale-[1.06] object-cover"
+        />
       </Layer>
-      {/* tea-country silhouettes */}
-      <Layer depth={0.55} className="absolute bottom-[10%] inset-x-0">
-        <svg viewBox="0 0 1440 160" className="w-full text-[#2c4a3e]" preserveAspectRatio="none" aria-hidden>
-          <path fill="currentColor" d="M0 160 L0 100 Q 180 60 360 95 T 720 85 T 1080 100 T 1440 85 L1440 160 Z" />
-        </svg>
-      </Layer>
-      {/* palms foreground */}
-      {!compact && (
-        <Layer depth={0.9} className="absolute bottom-[-2%] right-[-3%] w-[42vw] max-w-[560px] text-[#10221c]">
-          <svg viewBox="0 0 200 200" aria-hidden className="w-full">
-            <g fill="currentColor">
-              <rect x="96" y="80" width="8" height="120" rx="4" />
-              <path d="M100 82 C 70 70 50 74 34 88 C 58 78 78 80 100 88 Z" />
-              <path d="M100 82 C 130 70 150 74 166 88 C 142 78 122 80 100 88 Z" />
-              <path d="M100 84 C 84 60 66 52 44 54 C 70 58 86 68 98 88 Z" />
-              <path d="M100 84 C 116 60 134 52 156 54 C 130 58 114 68 102 88 Z" />
-              <path d="M100 80 C 96 56 100 40 100 30 C 102 44 104 60 104 80 Z" />
-            </g>
-          </svg>
-        </Layer>
-      )}
-      {/* ocean band */}
-      <Layer depth={0.25} className="absolute bottom-0 inset-x-0 h-[16%] bg-gradient-to-b from-[#0c4a5a]/0 to-[#0c4a5a]/70" />
 
-      {enable3D && (
-        <Layer depth={0.45} className="absolute inset-0">
-          <IslandScene3D />
-        </Layer>
-      )}
-
+      {/* cinematic colour grade: cool jungle cast + warm dusk from the base */}
+      <div className="absolute inset-0 bg-[#0c2a24]/35 mix-blend-multiply" aria-hidden />
       <div
-        className={`absolute inset-0 flex flex-col items-center justify-center px-6 text-center ${
-          mode === 'static' ? '' : 'pt-[8vh]'
+        className="absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_10%,rgba(255,214,150,0.18)_0%,rgba(0,0,0,0)_55%)]"
+        aria-hidden
+      />
+      {/* legibility scrim — bottom-weighted, single direction */}
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-[#0b1a15]/92 via-[#0b1a15]/35 to-[#0b1a15]/10"
+        aria-hidden
+      />
+
+      {/* vertical marginalia — desktop only */}
+      {!compact && (
+        <div className="absolute right-8 top-1/2 hidden -translate-y-1/2 lg:block" aria-hidden>
+          <p className="text-[0.68rem] font-medium uppercase tracking-[0.42em] text-white/50 [writing-mode:vertical-rl]">
+            The Paradise Island — Indian Ocean
+          </p>
+        </div>
+      )}
+
+      {/* editorial content — bottom-anchored, left-set */}
+      <div
+        className={`absolute inset-0 flex flex-col justify-end px-6 pb-24 sm:px-12 lg:px-24 ${
+          mode === 'static' ? '' : 'pb-28'
         }`}
       >
-        <p className="kicker !text-sand drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">Sri Lankan Guru</p>
-        <h1 className="display mt-5 text-[16vw] leading-[0.95] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.35)] sm:text-[11vw] lg:text-[9rem]">
-          SRI LANKA
+        <div className="flex items-center gap-4">
+          <span className="h-px w-12 bg-sand/70" aria-hidden />
+          <p className="!text-sand/90">
+            Sri Lankan Guru<span className="hidden sm:inline"> · Destination Management Company</span>
+          </p>
+        </div>
+
+        <h1 className="display-hero mt-6 text-[17.5vw] text-white drop-shadow-[0_6px_30px_rgba(0,0,0,0.45)] sm:text-[13vw] lg:text-[10.5rem]">
+          Sri Lanka
         </h1>
-        <p className="mt-6 max-w-xl text-balance text-base font-medium text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] sm:text-lg">
-          An island of ancient kingdoms, misty mountains, wild horizons and warm seas.
+
+        <p className="display-italic mt-5 max-w-2xl text-2xl text-sand/95 sm:text-3xl lg:text-4xl">
+          An island of ancient kingdoms, misty mountains, wild horizons &amp; warm seas.
         </p>
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+
+        <div className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8">
           <Link
             href="/plan"
-            className="rounded-full bg-terracotta px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-editorial transition-transform hover:scale-[1.03] active:scale-95"
+            className="rounded-full bg-terracotta px-9 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-white shadow-editorial transition-transform hover:scale-[1.03] active:scale-95"
           >
             Plan My Journey
           </Link>
           <Link
             href="/explore"
-            className="rounded-full border border-white/70 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:bg-white/15"
+            className="group inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.16em] text-white/90 transition-colors hover:text-sand"
           >
             Explore the Island
+            <span
+              aria-hidden
+              className="inline-block transition-transform group-hover:translate-x-1.5"
+            >
+              &rarr;
+            </span>
           </Link>
+        </div>
+      </div>
+
+      {/* bottom folio bar */}
+      <div className="absolute inset-x-0 bottom-0 border-t border-white/15 px-6 py-4 sm:px-12 lg:px-24">
+        <div className="flex items-center justify-between text-[0.65rem] font-medium uppercase tracking-[0.28em] text-white/55">
+          <span>6.9271° N · 79.8612° E</span>
+          <span className="hidden items-center gap-3 sm:flex">
+            <span className="relative block h-8 w-px overflow-hidden bg-white/25">
+              <span className="scroll-cue absolute inset-x-0 top-0 h-3 bg-sand" />
+            </span>
+            Scroll
+          </span>
+          <span className="hidden sm:block">Customized journeys, locally guided</span>
         </div>
       </div>
     </div>
@@ -304,8 +314,8 @@ function CultureScene({ mode }: SceneProps) {
           </Link>
         </div>
         <Collage
-          main={{ src: img('Lion Rock - Sigiriya, Sri Lanka.jpg'), alt: 'Sigiriya Lion Rock rising above the forest canopy' }}
-          secondary={{ src: img('Kandy Sri Lanka Temple of the tooth.jpg'), alt: 'The Temple of the Tooth in Kandy' }}
+          main={{ src: img('Kandy Sri Lanka Temple of the tooth.jpg'), alt: 'The Temple of the Tooth in Kandy' }}
+          secondary={{ src: img('Ruwanwelisaya Stupa Anuradhapura.jpg'), alt: 'The Ruwanwelisaya stupa at Anuradhapura' }}
           caption="Sigiriya · Kandy · Anuradhapura · Polonnaruwa"
         />
       </div>
@@ -443,8 +453,8 @@ function SceneShell({ bg, children }: { bg: string; children: React.ReactNode })
   return <div className={`flex h-full min-h-[92vh] items-center ${bg}`}>{children}</div>
 }
 
-function img(file: string) {
-  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=1200`
+function img(file: string, width = 1200) {
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${width}`
 }
 
 function Collage({
