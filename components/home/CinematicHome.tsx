@@ -230,7 +230,7 @@ function IslandScene({ mode, compact }: IslandProps) {
       {/* vertical marginalia — desktop only */}
       {!compact && (
         <div className="absolute right-8 top-1/2 hidden -translate-y-1/2 lg:block" aria-hidden>
-          <p className="text-[0.68rem] font-medium uppercase tracking-[0.42em] text-white/50 [writing-mode:vertical-rl]">
+          <p className="text-[0.68rem] font-medium uppercase tracking-[0.3em] text-white/50 [writing-mode:vertical-rl]">
             The Paradise Island — Indian Ocean
           </p>
         </div>
@@ -249,11 +249,11 @@ function IslandScene({ mode, compact }: IslandProps) {
           </p>
         </div>
 
-        <h1 className="display-hero mt-6 text-[17.5vw] text-white drop-shadow-[0_6px_30px_rgba(0,0,0,0.45)] sm:text-[13vw] lg:text-[10.5rem]">
+        <h1 className="display-hero mt-6 text-6xl text-white drop-shadow-[0_6px_30px_rgba(0,0,0,0.45)] sm:text-7xl lg:text-[7.5rem]">
           Sri Lanka
         </h1>
 
-        <p className="display-italic mt-5 max-w-2xl text-2xl text-sand/95 sm:text-3xl lg:text-4xl">
+        <p className="display-italic mt-5 max-w-2xl text-xl text-sand/95 sm:text-2xl lg:text-3xl">
           An island of ancient kingdoms, misty mountains, wild horizons &amp; warm seas.
         </p>
 
@@ -281,7 +281,7 @@ function IslandScene({ mode, compact }: IslandProps) {
 
       {/* bottom folio bar */}
       <div className="absolute inset-x-0 bottom-0 border-t border-white/15 px-6 py-4 sm:px-12 lg:px-24">
-        <div className="flex items-center justify-between text-[0.65rem] font-medium uppercase tracking-[0.28em] text-white/55">
+        <div className="flex items-center justify-between text-[0.65rem] font-medium uppercase tracking-[0.2em] text-white/55">
           <span>6.9271° N · 79.8612° E</span>
           <span className="hidden items-center gap-3 sm:flex">
             <span className="relative block h-8 w-px overflow-hidden bg-white/25">

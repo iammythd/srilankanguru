@@ -16,8 +16,8 @@ export default function Footer() {
     <footer className="bg-jungle text-sand">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <p className="display text-3xl">
-            Sri Lankan&nbsp;<span className="italic">Guru</span>
+          <p className="font-sans text-lg font-bold tracking-[0.06em]">
+            Sri Lankan&nbsp;<span className="font-light text-sand">Guru</span>
           </p>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-sand/70">{COMPANY.description}</p>
           <a

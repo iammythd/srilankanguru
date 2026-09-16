@@ -40,9 +40,9 @@ export default function Navbar() {
       <div className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
         <Link
           href="/"
-          className="display text-xl text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sm:text-2xl"
+          className="font-sans text-[15px] font-bold tracking-[0.06em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sm:text-base"
         >
-          Sri Lankan&nbsp;<span className="italic text-sand">Guru</span>
+          Sri Lankan&nbsp;<span className="font-light text-sand">Guru</span>
         </Link>
 
         <nav aria-label="Main menu" className="hidden items-center gap-8 lg:flex">
