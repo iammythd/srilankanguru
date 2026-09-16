@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-jungle: #10221c;
+  --color-jungle-800: #163028;
+  --color-ocean: #0c4a5a;
+  --color-ocean-600: #10607a;
+  --color-sand: #e8d5b5;
+  --color-sand-dark: #c9b088;
+  --color-cloud: #f4f0e8;
+  --color-terracotta: #a75d3f;
+  --color-tea: #607a54;
+  --color-ink: #111412;
+  --color-muted: #5a625d;
+
+  --font-display: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --shadow-editorial: 0 24px 60px -24px rgb(16 34 28 / 0.28);
+  --shadow-card: 0 14px 40px -18px rgb(16 34 28 / 0.22);
+}
+
+body {
+  background: var(--color-cloud);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-terracotta);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Editorial helpers */
+.kicker {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-terracotta);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+}
+
+.rule-terracotta::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 2px;
+  background: var(--color-terracotta);
+  margin-top: 14px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cloud);
+}
+::-webkit-scrollbar-thumb {
+  background: #c4bda9;
+  border-radius: 8px;
+}
+
+/* Leaflet map overrides to fit the editorial palette */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: #dce8e6;
+}
+.slg-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--color-jungle);
+  color: var(--color-sand);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgb(16 34 28 / 0.35);
+  border: 2px solid var(--color-sand);
+}
+.slg-marker-start {
+  background: var(--color-terracotta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

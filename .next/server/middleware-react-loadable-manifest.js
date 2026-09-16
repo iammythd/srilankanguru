@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"components/home/CinematicHome.tsx -> @/components/home/IslandScene3D\":{\"id\":\"components/home/CinematicHome.tsx -> @/components/home/IslandScene3D\",\"files\":[\"static/chunks/_app-pages-browser_components_home_IslandScene3D_tsx.js\"]}}"
