@@ -8,6 +8,7 @@ import type { User } from '@supabase/supabase-js'
 
 const LINKS = [
   { href: '/explore', label: 'Destinations' },
+  { href: '/discover-sri-lanka', label: 'Discover' },
   { href: '/plan', label: 'Plan Your Trip' },
   { href: '/journeys', label: 'My Journeys' },
   { href: '/about', label: 'About' },

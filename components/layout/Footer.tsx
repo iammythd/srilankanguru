@@ -3,6 +3,7 @@ import { COMPANY } from '@/lib/config'
 
 const exploreLinks = [
   { href: '/explore', label: 'Destinations' },
+  { href: '/discover-sri-lanka', label: 'Discover Sri Lanka' },
   { href: '/plan', label: 'Plan Your Trip' },
   { href: '/journeys', label: 'My Journeys' },
   { href: '/about', label: 'About' },
